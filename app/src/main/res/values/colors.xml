@@ -28,4 +28,10 @@
     <!-- Gradients -->
     <color name="gradient_start">#42A5F5</color>
     <color name="gradient_end">#F06292</color>
+    
+    <!-- Additional Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="fab_color">#42A5F5</color>
+    <color name="progress_background">#E0E0E0</color>
 </resources>
