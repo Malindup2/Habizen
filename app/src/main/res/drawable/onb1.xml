@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Placeholder for onb1 image -->
+    <!-- Replace this with actual onb1.png/jpg when available -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:fillAlpha="0.1"
+            android:pathData="M100,10 A90,90 0 1,1 100,190 A90,90 0 1,1 100,10 Z" />
+    </group>
+
+    <!-- Wellness journey icon -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:pathData="M100,60 A12,12 0 1,1 100,84 A12,12 0 1,1 100,60 Z" />
+    </group>
+
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M92,84L108,84L108,120L92,120Z" />
+
+    <!-- Progress path -->
+    <path
+        android:fillColor="@color/white"
+        android:strokeColor="@color/primary"
+        android:strokeWidth="3"
+        android:pathData="M70,140 Q100,110 130,140" />
+
+    <!-- Stars representing achievements -->
+    <path
+        android:fillColor="@color/secondary"
+        android:pathData="M75,50 L78,58 L86,58 L80,64 L83,72 L75,67 L67,72 L70,64 L64,58 L72,58 Z" />
+
+    <path
+        android:fillColor="@color/secondary"
+        android:pathData="M125,45 L128,53 L136,53 L130,59 L133,67 L125,62 L117,67 L120,59 L114,53 L122,53 Z" />
+
+</vector>

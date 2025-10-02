@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Habizen</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Your Wellness Journey Starts Here</string>
+    <string name="onboarding_desc_1">"Every small positive change we make in ourselves repays us in confidence in the future." - Alice Walker</string>
+    <string name="onboarding_title_2">Build Healthy Habits Daily</string>
+    <string name="onboarding_desc_2">"The journey of a thousand miles begins with a single step." - Lao Tzu</string>
+    
+    <!-- Navigation -->
+    <string name="nav_habits">Habits</string>
+    <string name="nav_mood">Mood</string>
+    <string name="nav_hydration">Hydration</string>
+    <string name="nav_profile">Profile</string>
+    
+    <!-- Common -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="onboarding_image_desc">Onboarding illustration</string>
+    
+    <!-- Authentication -->
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="sign_in_subtitle">Sign in to continue your wellness journey</string>
+    <string name="create_account">Create Account</string>
+    <string name="join_wellnest">Join Habizen and start your wellness journey</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="terms_conditions">I agree to the Terms &amp; Conditions</string>
+
+    <!-- Settings -->
+    <string name="reminder_interval_template">Reminder every %1$d min</string>
+    <string name="reminder_window_template">Active between %1$s and %2$s</string>
+</resources>

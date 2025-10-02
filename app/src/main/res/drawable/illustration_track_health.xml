@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Background circle -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:fillAlpha="0.1"
+            android:pathData="M100,10 A90,90 0 1,1 100,190 A90,90 0 1,1 100,10 Z" />
+    </group>
+    
+    <!-- Person figure -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:pathData="M100,55 A15,15 0 1,1 100,85 A15,15 0 1,1 100,55 Z" />
+    </group>
+    
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M90,85L110,85L110,125L90,125Z" />
+    
+    <!-- Checklist -->
+    <path
+        android:fillColor="@color/white"
+        android:strokeColor="@color/primary"
+        android:strokeWidth="2"
+        android:pathData="M130,80L170,80L170,130L130,130Z" />
+    
+    <!-- Check marks -->
+    <path
+        android:pathData="M140,95L145,100L155,90" 
+        android:strokeWidth="3"
+        android:strokeColor="@color/success" />
+    
+    <path
+        android:pathData="M140,105L145,110L155,100" 
+        android:strokeWidth="3"
+        android:strokeColor="@color/success" />
+    
+    <path
+        android:pathData="M140,115L145,120L155,110" 
+        android:strokeWidth="3"
+        android:strokeColor="@color/success" />
+</vector>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Background circle -->
+    <group>
+        <path
+            android:fillColor="@color/secondary"
+            android:fillAlpha="0.1"
+            android:pathData="M100,10 A90,90 0 1,1 100,190 A90,90 0 1,1 100,10 Z" />
+    </group>
+    
+    <!-- Water glass -->
+    <path
+        android:fillColor="@color/white"
+        android:strokeColor="@color/secondary"
+        android:strokeWidth="3"
+        android:pathData="M80,60L80,140L120,140L120,60Z" />
+    
+    <!-- Water inside glass -->
+    <path
+        android:fillColor="@color/secondary"
+        android:fillAlpha="0.7"
+        android:pathData="M83,100L83,137L117,137L117,100Z" />
+    
+    <!-- Water drops -->
+    <group>
+        <path
+            android:fillColor="@color/secondary"
+            android:pathData="M90,82 A3,3 0 1,1 90,88 A3,3 0 1,1 90,82 Z" />
+    </group>
+    
+    <group>
+        <path
+            android:fillColor="@color/secondary"
+            android:pathData="M110,87 A3,3 0 1,1 110,93 A3,3 0 1,1 110,87 Z" />
+    </group>
+    
+    <!-- Meditation icon -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:pathData="M140,70 A10,10 0 1,1 140,90 A10,10 0 1,1 140,70 Z" />
+    </group>
+    
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M134,90L146,90L146,110L134,110Z" />
+    
+    <!-- Zen circles -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:fillAlpha="0.3"
+            android:pathData="M140,105 A15,15 0 1,1 140,135 A15,15 0 1,1 140,105 Z" />
+    </group>
+    
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:fillAlpha="0.1"
+            android:pathData="M140,95 A25,25 0 1,1 140,145 A25,25 0 1,1 140,95 Z" />
+    </group>
+</vector>

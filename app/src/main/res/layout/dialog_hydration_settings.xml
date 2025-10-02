@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Set your daily hydration goal"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Daily goal (ml)"
+        app:hintTextColor="@color/text_secondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Quick Select:"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <!-- Use equal weights and uniform margins/padding to align buttons nicely -->
+        <Button
+            android:id="@+id/btn1500ml"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:minHeight="36dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="1.5L"
+            android:textColor="@color/primary"
+            android:strokeColor="@color/primary"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btn2000ml"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:minHeight="36dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="2L"
+            android:textColor="@color/primary"
+            android:strokeColor="@color/primary"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btn2500ml"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:minHeight="36dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="2.5L"
+            android:textColor="@color/primary"
+            android:strokeColor="@color/primary"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btn3000ml"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:minHeight="36dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="3L"
+            android:textColor="@color/primary"
+            android:strokeColor="@color/primary"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="💡 Tip: Most adults need 8-10 glasses (2-2.5L) of water daily"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp" />
+
+</LinearLayout>

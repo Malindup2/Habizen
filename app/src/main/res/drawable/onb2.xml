@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Placeholder for onb2 image -->
+    <!-- Replace this with actual onb2.png/jpg when available -->
+    <group>
+        <path
+            android:fillColor="@color/secondary"
+            android:fillAlpha="0.1"
+            android:pathData="M100,10 A90,90 0 1,1 100,190 A90,90 0 1,1 100,10 Z" />
+    </group>
+
+    <!-- Habit building calendar -->
+    <path
+        android:fillColor="@color/white"
+        android:strokeColor="@color/secondary"
+        android:strokeWidth="2"
+        android:pathData="M60,50L140,50L140,130L60,130Z" />
+
+    <!-- Calendar header -->
+    <path
+        android:fillColor="@color/secondary"
+        android:pathData="M60,50L140,50L140,70L60,70Z" />
+
+    <!-- Check marks for completed days -->
+    <path
+        android:pathData="M75,85L80,90L90,80"
+        android:strokeWidth="2"
+        android:strokeColor="@color/success" />
+
+    <path
+        android:pathData="M100,85L105,90L115,80"
+        android:strokeWidth="2"
+        android:strokeColor="@color/success" />
+
+    <path
+        android:pathData="M75,105L80,110L90,100"
+        android:strokeWidth="2"
+        android:strokeColor="@color/success" />
+
+    <path
+        android:pathData="M100,105L105,110L115,100"
+        android:strokeWidth="2"
+        android:strokeColor="@color/success" />
+
+    <!-- Today indicator -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M125,85 A8,8 0 1,1 125,101 A8,8 0 1,1 125,85 Z" />
+
+    <!-- Motivation flame -->
+    <group>
+        <path
+            android:fillColor="@color/primary"
+            android:pathData="M160,70 A6,8 0 1,1 160,86 A6,8 0 1,1 160,70 Z" />
+        <path
+            android:fillColor="#FFFF00"
+            android:pathData="M160,74 A2,3 0 1,1 160,80 A2,3 0 1,1 160,74 Z" />
+    </group>
+
+</vector>

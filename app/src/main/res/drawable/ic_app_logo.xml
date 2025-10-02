@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    
+    <!-- App logo - simplified wellness icon -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M50,10C72.09,10 90,27.91 90,50C90,72.09 72.09,90 50,90C27.91,90 10,72.09 10,50C10,27.91 27.91,10 50,10Z" />
+    
+    <!-- Heart shape in center -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M50,70L42,62C32,53 26,47 26,40C26,34.5 30.5,30 36,30C39.5,30 43,32 44.5,35C46,32 49.5,30 53,30C58.5,30 63,34.5 63,40C63,47 57,53 47,62L50,70Z" />
+    
+    <!-- Plus sign for health -->
+    <path
+        android:fillColor="@color/secondary"
+        android:pathData="M48,35L52,35L52,45L62,45L62,49L52,49L52,59L48,59L48,49L38,49L38,45L48,45L48,35Z" />
+</vector>
