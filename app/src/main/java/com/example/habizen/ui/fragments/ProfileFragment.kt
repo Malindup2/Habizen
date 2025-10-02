@@ -66,12 +66,12 @@ class ProfileFragment : Fragment() {
         val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
 
         if (user != null) {
-            binding.tvUserName.text = user.name.ifEmpty { "WellNest Explorer" }
+            binding.tvUserName.text = user.name.ifEmpty { "Habizen Explorer" }
             binding.tvUserEmail.text = user.email
             binding.tvUserEmail.isVisible = user.email.isNotEmpty()
             binding.tvJoinDate.text = "Joined ${dateFormatter.format(Date(user.joinDate))}"
         } else {
-            binding.tvUserName.text = "Welcome to WellNest"
+            binding.tvUserName.text = "Welcome to Habizen"
             binding.tvUserEmail.isVisible = false
             binding.tvJoinDate.text = "Let's start building healthy habits"
         }

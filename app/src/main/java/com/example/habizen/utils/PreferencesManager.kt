@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 object PreferencesManager {
-    private const val PREFS_NAME = "WellNestPrefs"
+    private const val PREFS_NAME = "HabizenPrefs"
     
     // Keys
     private const val KEY_HABITS = "habits_list"

@@ -30,7 +30,7 @@ class HydrationReminderWorker(
     companion object {
         private const val CHANNEL_ID = "hydration_reminders"
         private const val NOTIFICATION_ID = 1001
-        private const val WORK_NAME = "wellnest_hydration_reminders"
+        private const val WORK_NAME = "habizen_hydration_reminders"
 
         fun schedule(context: Context) {
             val settings = PreferencesManager.getHydrationSettings(context)

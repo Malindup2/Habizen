@@ -18,7 +18,7 @@ object DataExporter {
         val bundle = collectData(context)
         if (bundle.isEmpty()) return null
         val json = Gson().toJson(bundle)
-        return writeToFile(context, "wellnest_export.json", json)
+        return writeToFile(context, "habizen_export.json", json)
     }
 
     fun exportCsv(context: Context): Uri? {
@@ -68,7 +68,7 @@ object DataExporter {
             ).joinToString(separator = ",") { escapeCsv(it) })
         }
 
-        return writeToFile(context, "wellnest_export.csv", builder.toString())
+        return writeToFile(context, "habizen_export.csv", builder.toString())
     }
 
     private fun collectData(context: Context): ExportBundle {

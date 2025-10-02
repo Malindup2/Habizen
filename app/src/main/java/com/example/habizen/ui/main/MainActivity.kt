@@ -121,15 +121,15 @@ class MainActivity : AppCompatActivity() {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, 
-                "Check out WellNest - Your complete wellness tracking app! Download it today and start your health journey.")
+                "Check out Habizen - Your complete wellness tracking app! Download it today and start your health journey.")
         }
-        startActivity(Intent.createChooser(shareIntent, "Share WellNest"))
+        startActivity(Intent.createChooser(shareIntent, "Share Habizen"))
     }
     
     private fun showLogoutDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Logout")
-            .setMessage("Are you sure you want to logout from WellNest?")
+            .setMessage("Are you sure you want to logout from Habizen?")
             .setPositiveButton("Logout") { _, _ ->
                 logout()
             }

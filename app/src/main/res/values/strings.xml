@@ -28,7 +28,7 @@
     <string name="welcome_back">Welcome Back!</string>
     <string name="sign_in_subtitle">Sign in to continue your wellness journey</string>
     <string name="create_account">Create Account</string>
-    <string name="join_wellnest">Join Habizen and start your wellness journey</string>
+    <string name="join_habizen">Join Habizen and start your wellness journey</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>

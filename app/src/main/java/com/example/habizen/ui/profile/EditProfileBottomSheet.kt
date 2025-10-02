@@ -72,7 +72,7 @@ class EditProfileBottomSheet : BottomSheetDialogFragment() {
                 binding.tilPassword.error = "Password must be 6+ characters"
                 return
             }
-            else -> hashPassword("wellnest")
+            else -> hashPassword("habizen")
         }
 
         val updatedUser = User(

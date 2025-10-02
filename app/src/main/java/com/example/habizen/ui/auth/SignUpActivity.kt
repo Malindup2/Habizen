@@ -129,7 +129,7 @@ class SignUpActivity : AppCompatActivity() {
     
     private fun showSuccessDialog(userName: String) {
         MaterialAlertDialogBuilder(this)
-            .setTitle("Welcome to WellNest!")
+            .setTitle("Welcome to Habizen!")
             .setMessage("Your account has been created successfully, $userName. You can now start tracking your wellness journey.")
             .setPositiveButton("Get Started") { dialog, _ ->
                 dialog.dismiss()

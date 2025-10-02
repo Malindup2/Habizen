@@ -20,6 +20,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "WellNest"
+rootProject.name = "Habizen"
 include(":app")
  

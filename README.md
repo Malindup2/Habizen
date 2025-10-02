@@ -1,8 +1,8 @@
-# WellNest - Wellness Tracking App
+# Habizen - Wellness Tracking App
 
 ## 📱 Project Overview
 
-**WellNest** is a comprehensive health and wellness tracking application built with Kotlin for Android. It helps users maintain daily habits, track mood patterns, stay hydrated, and monitor their overall wellness progress using Material Design 3.
+**Habizen** is a comprehensive health and wellness tracking application built with Kotlin for Android. It helps users maintain daily habits, track mood patterns, stay hydrated, and monitor their overall wellness progress using Material Design 3.
 
 ---
 
@@ -140,7 +140,7 @@
 
 ```
 app/src/main/
-├── java/com/example/wellnest/
+├── java/com/example/habizen/
 │   ├── data/                      # Data models
 │   │   ├── Habit.kt
 │   │   ├── MoodEntry.kt
@@ -396,7 +396,7 @@ For issues or questions:
 
 ## 🎉 Conclusion
 
-WellNest is a **fully functional wellness tracking application** with:
+Habizen is a **fully functional wellness tracking application** with:
 - 🎨 Beautiful Material Design 3 UI
 - ✅ Complete habits tracking system
 - 😊 Mood journal with history
