@@ -77,14 +77,20 @@ class HabitsFragment : Fragment() {
     }
     
     private fun setupClickListeners() {
-        binding.tvAddHabit.setOnClickListener {
+        binding.btnAddHabit.setOnClickListener {
             showAddHabitDialog()
         }
-        
+
         binding.btnAddFirstHabit.setOnClickListener {
             showAddHabitDialog()
         }
-        
+
+        binding.btnViewAnalytics.setOnClickListener {
+            // TODO: Navigate to analytics screen
+            // For now, just show a toast
+            android.widget.Toast.makeText(context, "Analytics coming soon!", android.widget.Toast.LENGTH_SHORT).show()
+        }
+
         // FAB click is handled in MainActivity
         activity?.findViewById<View>(com.example.habizen.R.id.fabAddHabit)?.setOnClickListener {
             showAddHabitDialog()
@@ -98,9 +104,11 @@ class HabitsFragment : Fragment() {
             binding.progressIndicator.progress = 0
             binding.tvProgressPercentage.text = "0%"
             binding.tvProgressDescription.text = "No habits to track"
+            binding.tvHabitsCount.text = "0 habits"
         } else {
             binding.llEmptyState.visibility = View.GONE
             binding.rvHabits.visibility = View.VISIBLE
+            binding.tvHabitsCount.text = "${habits.size} habits"
             updateProgress()
         }
         

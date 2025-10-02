@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout 
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,176 +22,207 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Date Header -->
-            <TextView
-                android:id="@+id/tvCurrentDate"
-                style="@style/SubheadlineStyle"
+            <!-- Hero Progress Section -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                tools:text="Wednesday, October 01" />
-
-            <!-- Progress Card -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/CardStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_background"
+                android:orientation="vertical"
+                android:padding="24dp"
                 android:layout_marginBottom="16dp">
 
-                <LinearLayout
+                <!-- Date Header -->
+                <TextView
+                    android:id="@+id/tvCurrentDate"
+                    style="@style/SubheadlineStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp">
+                    android:layout_marginBottom="8dp"
+                    android:text="Today&apos;s Progress"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
 
-                    <TextView
-                        style="@style/SubheadlineStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center"
-                        android:text="Today's Progress" />
+                <!-- Circular Progress Indicator -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
 
                     <com.google.android.material.progressindicator.CircularProgressIndicator
                         android:id="@+id/progressIndicator"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="16dp"
-                        app:indicatorColor="@color/primary"
+                        android:layout_marginTop="8dp"
+                        android:progress="0"
+                        app:indicatorColor="@android:color/white"
                         app:indicatorSize="120dp"
-                        app:trackColor="@color/progress_background"
-                        app:trackThickness="12dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/primary_dark"
+                        app:trackThickness="8dp" />
 
                     <TextView
                         android:id="@+id/tvProgressPercentage"
-                        style="@style/HeadlineStyle"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/primary"
-                        tools:text="75%" />
+                        android:layout_marginTop="8dp"
+                        android:text="0%"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/progressIndicator" />
 
                     <TextView
                         android:id="@+id/tvProgressDescription"
-                        style="@style/BodyStyle"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/text_secondary"
-                        tools:text="6 of 8 habits completed" />
+                        android:layout_marginTop="8dp"
+                        android:text="No habits to track"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/progressIndicator" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-            <!-- Habits Section Card -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/CardStyle"
+            <!-- Quick Actions Card -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <!-- Habits Header -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="Quick Actions"
+                        android:textColor="@color/primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="20dp"
-                        android:background="@drawable/gradient_background">
-
-                        <TextView
-                            style="@style/SubheadlineStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="My Habits"
-                            android:textColor="@color/white" />
+                        android:weightSum="2">
 
                         <Button
-                            android:id="@+id/tvAddHabit"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/btnAddHabit"
+                            style="@style/PrimaryButtonStyle"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="+ Add Habit"
-                            android:textColor="@color/white"
-                            app:strokeColor="@color/white"
-                            app:icon="@drawable/ic_add"
-                            app:iconTint="@color/white" />
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:text="Add Habit" />
+
+                        <Button
+                            android:id="@+id/btnViewAnalytics"
+                            style="@style/PrimaryButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="View Analytics" />
 
                     </LinearLayout>
 
-                    <!-- Habits Content -->
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvHabits"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="120dp"
-                            android:nestedScrollingEnabled="true"
-                            android:layout_marginBottom="16dp"
-                            tools:itemCount="3"
-                            tools:listitem="@layout/item_habit" />
-
-                        <!-- Empty State -->
-                        <LinearLayout
-                            android:id="@+id/llEmptyState"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🎯"
-                                android:textSize="64sp" />
-
-                            <TextView
-                                style="@style/SubheadlineStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="No Habits Yet"
-                                android:textColor="@color/text_primary" />
-
-                            <TextView
-                                style="@style/BodyStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:gravity="center"
-                                android:text="Start building healthy habits\nby adding your first habit!"
-                                android:textColor="@color/text_secondary" />
-
-                            <Button
-                                android:id="@+id/btnAddFirstHabit"
-                                style="@style/PrimaryButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="24dp"
-                                android:text="Add My First Habit"
-                                app:icon="@drawable/ic_add" />
-
-                        </LinearLayout>
-
-                    </FrameLayout>
-
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Today&apos;s Habits Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Today&apos;s Habits"
+                    android:textColor="@color/primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHabitsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 habits"
+                    android:textColor="@color/secondary"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Habits RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHabits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_habit" />
+
+            <!-- Empty State -->
+            <LinearLayout
+                android:id="@+id/llEmptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="32dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="16dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/ic_check"
+                    app:tint="@color/primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="No habits yet"
+                    android:textColor="@color/primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Start building better habits today!"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnAddFirstHabit"
+                    style="@style/PrimaryButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create Your First Habit" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
