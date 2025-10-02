@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_hydration -> {
-                    showFragment(HydrationFragment(), "Hydration")
+                    showFragment(HydrationFragment(), "Water Tracker")
                     binding.fabAddHabit.hide()
                     true
                 }

@@ -66,13 +66,13 @@
                         android:id="@+id/tvProgressPercentage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:text="0%"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/progressIndicator"
+                        app:layout_constraintEnd_toEndOf="@+id/progressIndicator"
+                        app:layout_constraintStart_toStartOf="@+id/progressIndicator"
                         app:layout_constraintTop_toTopOf="@+id/progressIndicator" />
 
                     <TextView
@@ -91,52 +91,80 @@
 
             </LinearLayout>
 
+            <!-- Welcome Message -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+
+                <TextView
+                    android:id="@+id/tvWelcomeMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome back!"
+                    android:textColor="@color/primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:letterSpacing="0.01" />
+
+            </LinearLayout>
+
             <!-- Quick Actions Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/surface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="16dp"
                         android:text="Quick Actions"
                         android:textColor="@color/primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.01" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        android:layout_marginTop="8dp">
 
                         <Button
                             android:id="@+id/btnAddHabit"
                             style="@style/PrimaryButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
-                            android:text="Add Habit" />
+                            android:text="Add Habit"
+                            android:minHeight="48dp" />
 
                         <Button
                             android:id="@+id/btnViewAnalytics"
                             style="@style/PrimaryButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="12dp"
                             android:layout_weight="1"
-                            android:text="View Analytics" />
+                            android:text="View Analytics"
+                            android:minHeight="48dp" />
 
                     </LinearLayout>
 

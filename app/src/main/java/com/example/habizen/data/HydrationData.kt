@@ -6,7 +6,8 @@ data class HydrationData(
     val id: String = UUID.randomUUID().toString(),
     val amount: Int, // in ml
     val time: String,
-    val date: String
+    val date: String,
+    val drinkType: String = "Water"
 )
 
 data class HydrationLog(
