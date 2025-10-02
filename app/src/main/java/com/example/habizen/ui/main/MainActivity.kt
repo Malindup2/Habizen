@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         setupFAB()
         handleIntent()
     HydrationReminderWorker.schedule(this)
-        
+
         // Default to habits fragment
         if (savedInstanceState == null) {
             showFragment(HabitsFragment(), "Habits")
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_hydration -> {
-                    showFragment(HydrationFragment(), "Hydration")
+                    showFragment(HydrationFragment(), "Water Tracker")
                     binding.fabAddHabit.hide()
                     true
                 }
@@ -68,12 +68,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        
+
         // Set default selection
         binding.bottomNavigation.selectedItemId = R.id.nav_habits
-    }
-    
-    private fun setupFAB() {
+    }    private fun setupFAB() {
         binding.fabAddHabit.setOnClickListener {
             if (currentFragment is HabitsFragment) {
                 (currentFragment as HabitsFragment).showAddHabitDialogFromExternal()

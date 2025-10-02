@@ -13,6 +13,7 @@ import com.example.habizen.ui.dialogs.AddHabitDialog
 import com.example.habizen.ui.dialogs.EditHabitDialog
 import com.example.habizen.utils.HabitReminderScheduler
 import com.example.habizen.utils.PreferencesManager
+import com.example.habizen.utils.AnalyticsManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,6 +47,14 @@ class HabitsFragment : Fragment() {
     private fun setupUI() {
         val dateFormat = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault())
         binding.tvCurrentDate.text = dateFormat.format(Date())
+
+        // Set welcome message
+        val user = PreferencesManager.getUser(requireContext())
+        if (user != null) {
+            binding.tvWelcomeMessage.text = "Welcome back, ${user.name}!"
+        } else {
+            binding.tvWelcomeMessage.text = "Welcome back!"
+        }
     }
     
     private fun setupRecyclerView() {
@@ -77,18 +86,64 @@ class HabitsFragment : Fragment() {
     }
     
     private fun setupClickListeners() {
-        binding.tvAddHabit.setOnClickListener {
+        binding.btnAddHabit.setOnClickListener {
             showAddHabitDialog()
         }
-        
+
         binding.btnAddFirstHabit.setOnClickListener {
             showAddHabitDialog()
         }
-        
+
+        binding.btnViewAnalytics.setOnClickListener {
+            showAnalyticsDialog()
+        }
+
         // FAB click is handled in MainActivity
         activity?.findViewById<View>(com.example.habizen.R.id.fabAddHabit)?.setOnClickListener {
             showAddHabitDialog()
         }
+    }
+
+    private fun showAnalyticsDialog() {
+        val habitSummary = AnalyticsManager.getHabitSummary(requireContext())
+        val moodSummary = AnalyticsManager.getMoodSummary(requireContext())
+        val hydrationSummary = AnalyticsManager.getHydrationSummary(requireContext())
+
+        val message = buildString {
+            append("📊 Your Analytics Summary\n\n")
+            append("🏃 Habits:\n")
+            append("• Total Habits: ${habitSummary.totalHabits}\n")
+            append("• Today's Completion: ${"%.1f".format(habitSummary.completionRate)}%\n")
+            append("• Longest Streak: ${habitSummary.longestStreak} days\n\n")
+
+            append("😊 Mood Tracking:\n")
+            if (moodSummary.distribution.isNotEmpty()) {
+                append("• Average Mood: ${"%.1f".format(moodSummary.averageScore)}/5\n")
+                append("• Total Entries: ${moodSummary.distribution.values.sum()}\n")
+                val mostCommonMood = moodSummary.distribution.maxByOrNull { it.value }?.key ?: "None"
+                append("• Most Common: $mostCommonMood\n")
+            } else {
+                append("• No mood entries yet\n")
+            }
+            append("\n")
+
+            append("💧 Hydration:\n")
+            append("• Today's Intake: ${hydrationSummary.todayTotal}ml\n")
+            append("• Daily Goal: ${hydrationSummary.dailyGoal}ml\n")
+            val progressPercent = if (hydrationSummary.dailyGoal > 0) {
+                (hydrationSummary.todayTotal.toFloat() / hydrationSummary.dailyGoal * 100).toInt()
+            } else 0
+            append("• Goal Progress: $progressPercent%\n")
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("📈 Your Progress")
+            .setMessage(message)
+            .setPositiveButton("Great!") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setIcon(com.example.habizen.R.drawable.ic_check)
+            .show()
     }
     
     private fun updateUI() {
@@ -98,9 +153,11 @@ class HabitsFragment : Fragment() {
             binding.progressIndicator.progress = 0
             binding.tvProgressPercentage.text = "0%"
             binding.tvProgressDescription.text = "No habits to track"
+            binding.tvHabitsCount.text = "0 habits"
         } else {
             binding.llEmptyState.visibility = View.GONE
             binding.rvHabits.visibility = View.VISIBLE
+            binding.tvHabitsCount.text = "${habits.size} habits"
             updateProgress()
         }
         

@@ -32,6 +32,8 @@ class HydrationFragment : Fragment() {
     private lateinit var hydrationAdapter: HydrationAdapter
     private var dailyGoal = 2350 // Default 2.35L = 2350ml
     private var currentIntake = 0
+    private var drinksCount = 0
+    private var currentStreak = 0
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,29 +51,42 @@ class HydrationFragment : Fragment() {
         setupRecyclerView()
         loadHydrationData()
         setupWorkManager()
+        loadWeeklyData()
     }
     
     private fun setupUI() {
-        // Quick add buttons with click animation
-        binding.add250ml.setOnClickListener {
-            animateButtonClick(binding.add250ml as MaterialButton)
-            addWater(250)
+        // Drink type buttons with click animation
+        binding.btnWaterGlass.setOnClickListener {
+            animateButtonClick(binding.btnWaterGlass as MaterialButton)
+            addWater(250, "Water Glass")
         }
-        binding.add500ml.setOnClickListener {
-            animateButtonClick(binding.add500ml as MaterialButton)
-            addWater(500)
+        binding.btnCoffee.setOnClickListener {
+            animateButtonClick(binding.btnCoffee as MaterialButton)
+            addWater(200, "Coffee")
         }
-        binding.add750ml.setOnClickListener {
-            animateButtonClick(binding.add750ml as MaterialButton)
-            addWater(750)
+        binding.btnTea.setOnClickListener {
+            animateButtonClick(binding.btnTea as MaterialButton)
+            addWater(200, "Tea")
+        }
+        binding.btnJuice.setOnClickListener {
+            animateButtonClick(binding.btnJuice as MaterialButton)
+            addWater(200, "Juice")
+        }
+        binding.btnSoda.setOnClickListener {
+            animateButtonClick(binding.btnSoda as MaterialButton)
+            addWater(330, "Soda")
+        }
+        binding.btnCustomDrink.setOnClickListener {
+            toggleCustomAmountInput()
         }
         
         // Custom amount
         binding.btnAddCustom.setOnClickListener {
             val amount = binding.etCustomAmount.text.toString().toIntOrNull()
             if (amount != null && amount > 0) {
-                addWater(amount)
+                addWater(amount, "Custom")
                 binding.etCustomAmount.text?.clear()
+                binding.cardCustomAmount.visibility = View.GONE
             } else {
                 Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
             }
@@ -80,6 +95,15 @@ class HydrationFragment : Fragment() {
         // Settings button
         binding.btnSettings.setOnClickListener {
             showSettingsDialog()
+        }
+    }
+    
+    private fun toggleCustomAmountInput() {
+        if (binding.cardCustomAmount.visibility == View.VISIBLE) {
+            binding.cardCustomAmount.visibility = View.GONE
+        } else {
+            binding.cardCustomAmount.visibility = View.VISIBLE
+            binding.etCustomAmount.requestFocus()
         }
     }
     
@@ -121,7 +145,7 @@ class HydrationFragment : Fragment() {
         }
     }
     
-    private fun addWater(amount: Int) {
+    private fun addWater(amount: Int, drinkType: String = "Water") {
         val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         
@@ -129,14 +153,17 @@ class HydrationFragment : Fragment() {
             id = System.currentTimeMillis().toString(),
             amount = amount,
             time = currentTime,
-            date = currentDate
+            date = currentDate,
+            drinkType = drinkType
         )
         
         PreferencesManager.addHydrationEntry(requireContext(), hydrationEntry)
         
         currentIntake += amount
+        drinksCount++
         updateUI()
         loadHydrationData()
+        loadWeeklyData()
         
         // Check if goal reached
         if (currentIntake >= dailyGoal) {
@@ -144,17 +171,79 @@ class HydrationFragment : Fragment() {
         }
     }
     
+    private fun loadWeeklyData() {
+        val calendar = Calendar.getInstance()
+        val today = calendar.get(Calendar.DAY_OF_WEEK)
+        
+        // Calculate the start of the week (Monday)
+        val daysToSubtract = if (today == Calendar.SUNDAY) 6 else today - Calendar.MONDAY
+        calendar.add(Calendar.DAY_OF_WEEK, -daysToSubtract)
+        
+        val weekDays = mutableListOf<String>()
+        for (i in 0..6) {
+            weekDays.add(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time))
+            calendar.add(Calendar.DAY_OF_WEEK, 1)
+        }
+        
+        // Load data for each day
+        val mondayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[0] }.sumOf { it.amount }
+        val tuesdayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[1] }.sumOf { it.amount }
+        val wednesdayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[2] }.sumOf { it.amount }
+        val thursdayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[3] }.sumOf { it.amount }
+        val fridayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[4] }.sumOf { it.amount }
+        val saturdayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[5] }.sumOf { it.amount }
+        val sundayAmount = PreferencesManager.getHydrationEntries(requireContext())
+            .filter { it.date == weekDays[6] }.sumOf { it.amount }
+        
+        // Update progress bars
+        updateWeeklyProgress(mondayAmount, tuesdayAmount, wednesdayAmount, thursdayAmount, 
+                           fridayAmount, saturdayAmount, sundayAmount)
+    }
+    
+    private fun updateWeeklyProgress(mon: Int, tue: Int, wed: Int, thu: Int, fri: Int, sat: Int, sun: Int) {
+        val goal = dailyGoal
+        
+        binding.progressMonday.progress = ((mon.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvMondayAmount.text = "${mon}ml"
+        
+        binding.progressTuesday.progress = ((tue.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvTuesdayAmount.text = "${tue}ml"
+        
+        binding.progressWednesday.progress = ((wed.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvWednesdayAmount.text = "${wed}ml"
+        
+        binding.progressThursday.progress = ((thu.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvThursdayAmount.text = "${thu}ml"
+        
+        binding.progressFriday.progress = ((fri.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvFridayAmount.text = "${fri}ml"
+        
+        binding.progressSaturday.progress = ((sat.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvSaturdayAmount.text = "${sat}ml"
+        
+        binding.progressSunday.progress = ((sun.toFloat() / goal) * 100).toInt().coerceAtMost(100)
+        binding.tvSundayAmount.text = "${sun}ml"
+    }
+    
     private fun deleteHydrationEntry(hydrationData: HydrationData) {
         PreferencesManager.deleteHydrationEntry(requireContext(), hydrationData.id)
         
-        // Recalculate today's intake
+        // Recalculate today's intake and drinks count
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         if (hydrationData.date == today) {
             currentIntake -= hydrationData.amount
+            drinksCount--
             updateUI()
         }
         
-        loadHydrationData() // This will also update the empty state
+        loadHydrationData()
+        loadWeeklyData()
         Toast.makeText(requireContext(), "Entry deleted", Toast.LENGTH_SHORT).show()
     }
     
@@ -163,97 +252,41 @@ class HydrationFragment : Fragment() {
         
         binding.apply {
             tvCurrentIntake.text = "${currentIntake}ml"
-            tvDailyGoal.text = "Goal: ${dailyGoal}ml"
+            tvDailyGoal.text = "of ${dailyGoal}ml"
             progressHydration.progress = percentage.toInt()
+            tvProgress.text = "${percentage.toInt()}% Complete"
             
-            // Show remaining amount or completion status
+            // Update today's stats
+            tvDrinksCount.text = drinksCount.toString()
+            tvStreakCount.text = calculateStreak().toString()
+            
             val remaining = dailyGoal - currentIntake
-            tvProgress.text = if (percentage >= 100f) {
-                "🎉 Goal Achieved!"
+            tvRemainingAmount.text = if (remaining > 0) "${remaining}ml" else "0ml"
+        }
+    }
+    
+    private fun calculateStreak(): Int {
+        // Simple streak calculation - count consecutive days with goal achievement
+        val calendar = Calendar.getInstance()
+        var streak = 0
+        var checkDate = calendar.time
+        
+        while (true) {
+            val dateStr = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(checkDate)
+            val dayEntries = PreferencesManager.getHydrationEntries(requireContext())
+                .filter { it.date == dateStr }
+            val dayTotal = dayEntries.sumOf { it.amount }
+            
+            if (dayTotal >= dailyGoal) {
+                streak++
+                calendar.add(Calendar.DAY_OF_MONTH, -1)
+                checkDate = calendar.time
             } else {
-                "${percentage.toInt()}% • ${remaining}ml left"
-            }
-            
-            // Animate water drops based on progress with visual effects
-            animateWaterDrops(percentage)
-        }
-    }
-    
-    private fun animateWaterDrops(percentage: Float) {
-        val filledDrops = (percentage / 20).toInt() // 5 drops = 100%
-        val dropViews = listOf(binding.drop1, binding.drop2, binding.drop3, binding.drop4, binding.drop5)
-        
-        dropViews.forEachIndexed { index, imageView ->
-            val shouldBeFilled = index < filledDrops
-            
-            // Set the appropriate drawable
-            imageView.setImageResource(
-                if (shouldBeFilled) R.drawable.ic_water_drop_filled 
-                else R.drawable.ic_water_drop_outline
-            )
-            
-            // Animate alpha and scale for visual feedback
-            val targetAlpha = if (shouldBeFilled) 1.0f else 0.6f
-            val targetScale = if (shouldBeFilled) 1.1f else 1.0f
-            
-            // Alpha animation
-            val alphaAnimator = ObjectAnimator.ofFloat(imageView, "alpha", imageView.alpha, targetAlpha)
-            alphaAnimator.duration = 300
-            
-            // Scale animation
-            val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", imageView.scaleX, targetScale)
-            val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", imageView.scaleY, targetScale)
-            
-            val scaleAnimatorSet = AnimatorSet()
-            scaleAnimatorSet.playTogether(scaleX, scaleY)
-            scaleAnimatorSet.duration = 300
-            
-            // Play animations together
-            val combinedAnimator = AnimatorSet()
-            combinedAnimator.playTogether(alphaAnimator, scaleAnimatorSet)
-            combinedAnimator.start()
-            
-            // Add ripple effect for filled drops
-            if (shouldBeFilled && imageView.tag != "filled") {
-                imageView.tag = "filled"
-                // Subtle bounce effect for newly filled drops
-                val bounceScaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1.0f, 1.3f, 1.1f)
-                val bounceScaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1.0f, 1.3f, 1.1f)
-                
-                val bounceSet = AnimatorSet()
-                bounceSet.playTogether(bounceScaleX, bounceScaleY)
-                bounceSet.duration = 400
-                bounceSet.interpolator = android.view.animation.BounceInterpolator()
-                bounceSet.start()
-            } else if (!shouldBeFilled) {
-                imageView.tag = null
+                break
             }
         }
         
-        // Special celebration when all drops are filled
-        if (filledDrops == 5 && percentage >= 100f) {
-            celebrateGoalAchieved()
-        }
-    }
-    
-    private fun celebrateGoalAchieved() {
-        val dropViews = listOf(binding.drop1, binding.drop2, binding.drop3, binding.drop4, binding.drop5)
-        
-        // Create a wave effect across all drops
-        dropViews.forEachIndexed { index, imageView ->
-            Handler(Looper.getMainLooper()).postDelayed({
-                // Celebration bounce
-                val celebrationScaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1.1f, 1.4f, 1.1f)
-                val celebrationScaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1.1f, 1.4f, 1.1f)
-                val celebrationAlpha = ObjectAnimator.ofFloat(imageView, "alpha", 1.0f, 0.8f, 1.0f)
-                
-                val celebrationSet = AnimatorSet()
-                celebrationSet.playTogether(celebrationScaleX, celebrationScaleY, celebrationAlpha)
-                celebrationSet.duration = 600
-                celebrationSet.interpolator = android.view.animation.BounceInterpolator()
-                celebrationSet.start()
-            }, index * 100L) // Stagger the animations
-        }
+        return streak
     }
     
     private fun showSettingsDialog() {
