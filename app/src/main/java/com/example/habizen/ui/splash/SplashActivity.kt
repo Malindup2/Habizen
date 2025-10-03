@@ -8,7 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habizen.databinding.ActivitySplashBinding
-import com.example.habizen.ui.onboarding.OnboardingActivity
+import com.example.habizen.ui.onboarding.Onboarding1Activity
 import com.example.habizen.ui.auth.LoginActivity
 import com.example.habizen.ui.main.MainActivity
 import com.example.habizen.utils.PreferencesManager
@@ -87,10 +87,10 @@ class SplashActivity : AppCompatActivity() {
         val intent = when {
             PreferencesManager.isFirstLaunch(this) -> {
                 PreferencesManager.setFirstLaunch(this, false)
-                Intent(this, OnboardingActivity::class.java)
+                Intent(this, Onboarding1Activity::class.java)
             }
             !PreferencesManager.isOnboardingCompleted(this) -> {
-                Intent(this, OnboardingActivity::class.java)
+                Intent(this, Onboarding1Activity::class.java)
             }
             !PreferencesManager.isLoggedIn(this) -> {
                 Intent(this, LoginActivity::class.java)

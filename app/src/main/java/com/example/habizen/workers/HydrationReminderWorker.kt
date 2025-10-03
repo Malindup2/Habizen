@@ -113,7 +113,7 @@ class HydrationReminderWorker(
         }
 
         val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_water_drop)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Stay Hydrated!")
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))

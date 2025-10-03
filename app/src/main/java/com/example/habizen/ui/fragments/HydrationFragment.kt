@@ -36,6 +36,9 @@ class HydrationFragment : Fragment() {
     private var drinksCount = 0
     private var currentStreak = 0
     
+    // Handler for button animation reset
+    private val animationHandler = Handler(Looper.getMainLooper())
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,8 +80,9 @@ class HydrationFragment : Fragment() {
             animateButtonClick(binding.btnSoda as MaterialButton)
             addWater(330, "Soda")
         }
-        binding.btnCustomDrink.setOnClickListener {
-            toggleCustomAmountInput()
+        binding.btnEnergyDrink.setOnClickListener {
+            animateButtonClick(binding.btnEnergyDrink as MaterialButton)
+            addWater(200, "Energy Drink")
         }
         
         // Custom amount
@@ -87,7 +91,7 @@ class HydrationFragment : Fragment() {
             if (amount != null && amount > 0) {
                 addWater(amount, "Custom")
                 binding.etCustomAmount.text?.clear()
-                binding.cardCustomAmount.visibility = View.GONE
+                // Card stays visible now
             } else {
                 Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
             }
@@ -96,15 +100,6 @@ class HydrationFragment : Fragment() {
         // Settings button
         binding.btnSettings.setOnClickListener {
             showSettingsDialog()
-        }
-    }
-    
-    private fun toggleCustomAmountInput() {
-        if (binding.cardCustomAmount.visibility == View.VISIBLE) {
-            binding.cardCustomAmount.visibility = View.GONE
-        } else {
-            binding.cardCustomAmount.visibility = View.VISIBLE
-            binding.etCustomAmount.requestFocus()
         }
     }
     
@@ -327,6 +322,9 @@ class HydrationFragment : Fragment() {
     }
     
     private fun animateButtonClick(button: MaterialButton) {
+        // Cancel any pending animation reset
+        animationHandler.removeCallbacksAndMessages(null)
+        
         // Change to active state (filled button with primary background, white text/icons)
         button.setBackgroundColor(resources.getColor(R.color.primary, null))
         button.setTextColor(resources.getColor(R.color.white, null))
@@ -343,7 +341,7 @@ class HydrationFragment : Fragment() {
         animatorSet.start()
         
         // Revert to idle state after 300ms (outlined button style)
-        Handler(Looper.getMainLooper()).postDelayed({
+        animationHandler.postDelayed({
             // Reset to outlined button style
             button.backgroundTintList = resources.getColorStateList(R.color.white, null)
             button.setTextColor(resources.getColor(R.color.primary, null))

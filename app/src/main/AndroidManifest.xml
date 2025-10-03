@@ -29,9 +29,13 @@
             </intent-filter>
         </activity>
         
-        <!-- Onboarding Activity -->
+        <!-- Onboarding Activities -->
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name=".ui.onboarding.Onboarding1Activity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.onboarding.Onboarding2Activity"
             android:exported="false" />
         
         <!-- Authentication Activities -->

@@ -43,7 +43,7 @@ class HabitReminderReceiver : BroadcastReceiver() {
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_home)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setColor(ContextCompat.getColor(context, R.color.primary))
             .setContentTitle("${habit.emoji} ${habit.name}")
             .setContentText("It's time to complete this habit")
