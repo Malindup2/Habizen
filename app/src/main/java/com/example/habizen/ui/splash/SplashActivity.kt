@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
+import com.example.habizen.R
 import com.example.habizen.databinding.ActivitySplashBinding
 import com.example.habizen.ui.onboarding.Onboarding1Activity
 import com.example.habizen.ui.auth.LoginActivity
@@ -25,56 +27,37 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
+        // Set colored app name
+        binding.tvAppName.text = HtmlCompat.fromHtml(getString(R.string.app_name_colored), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        
         setupAnimations()
         navigateAfterDelay()
     }
     
     private fun setupAnimations() {
-        // Logo scale and fade-in animation
-        val logoScaleX = ObjectAnimator.ofFloat(binding.ivAppLogo, "scaleX", 0f, 1f)
-        val logoScaleY = ObjectAnimator.ofFloat(binding.ivAppLogo, "scaleY", 0f, 1f)
-        val logoAlpha = ObjectAnimator.ofFloat(binding.ivAppLogo, "alpha", 0f, 1f)
-        
         // App name fade-in animation
         val nameAlpha = ObjectAnimator.ofFloat(binding.tvAppName, "alpha", 0f, 1f)
         val nameTranslation = ObjectAnimator.ofFloat(binding.tvAppName, "translationY", 50f, 0f)
-        
+
         // Tagline fade-in animation
         val taglineAlpha = ObjectAnimator.ofFloat(binding.tvAppTagline, "alpha", 0f, 1f)
         val taglineTranslation = ObjectAnimator.ofFloat(binding.tvAppTagline, "translationY", 30f, 0f)
-        
-        // Version fade-in animation
-        val versionAlpha = ObjectAnimator.ofFloat(binding.tvVersion, "alpha", 0f, 1f)
-        
+
         // Combine animations
-        val logoAnimatorSet = AnimatorSet().apply {
-            playTogether(logoScaleX, logoScaleY, logoAlpha)
-            duration = 800
-        }
-        
         val textAnimatorSet = AnimatorSet().apply {
             playTogether(nameAlpha, nameTranslation)
             duration = 600
-            startDelay = 400
         }
-        
+
         val taglineAnimatorSet = AnimatorSet().apply {
             playTogether(taglineAlpha, taglineTranslation)
             duration = 600
-            startDelay = 600
+            startDelay = 200
         }
-        
-        val versionAnimatorSet = AnimatorSet().apply {
-            play(versionAlpha)
-            duration = 400
-            startDelay = 800
-        }
-        
+
         // Start animations
-        logoAnimatorSet.start()
         textAnimatorSet.start()
         taglineAnimatorSet.start()
-        versionAnimatorSet.start()
     }
     
     private fun navigateAfterDelay() {
