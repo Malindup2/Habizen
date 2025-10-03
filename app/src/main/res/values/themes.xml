@@ -180,4 +180,25 @@
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
+    <!-- Custom Logout Dialog Style -->
+    <style name="CustomLogoutDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">@color/white</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomLogoutDialogPositiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomLogoutDialogNegativeButton</item>
+    </style>
+
+    <style name="CustomLogoutDialogPositiveButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomLogoutDialogNegativeButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
 </resources>

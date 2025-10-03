@@ -1,15 +1,21 @@
 package com.example.habizen.ui.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.habizen.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habizen.data.DailyStat
 import com.example.habizen.data.MoodEntry
 import com.example.habizen.databinding.FragmentProfileBinding
+import com.example.habizen.ui.adapters.AchievementAdapter
+import com.example.habizen.ui.auth.LoginActivity
 import com.example.habizen.utils.AnalyticsManager
 import com.example.habizen.utils.AchievementsManager
 import com.example.habizen.utils.PreferencesManager
@@ -25,8 +31,6 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.habizen.ui.adapters.AchievementAdapter
 import kotlin.math.roundToInt
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -50,6 +54,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         configureCharts()
         setupAchievementsSection()
+        setupLogoutButton()
         populateUserProfile()
         renderAnalytics()
     }
@@ -81,35 +86,61 @@ class ProfileFragment : Fragment() {
         val context = requireContext()
 
         val habitSummary = AnalyticsManager.getHabitSummary(context)
-        binding.tvTotalHabits.text = "${habitSummary.totalHabits} Habits"
-        binding.tvHabitCompletion.text = "Completion ${habitSummary.completionRate.roundToInt()}%"
-        binding.tvLongestStreak.text = "Longest streak ${habitSummary.longestStreak} days"
+        binding.tvTotalHabits.text = "${habitSummary.totalHabits}"
+        binding.tvHabitCompletion.text = "${habitSummary.completionRate.roundToInt()}%"
+
+        val moodSummary = AnalyticsManager.getMoodSummary(context)
+        if (moodSummary.distribution.isEmpty()) {
+            binding.tvMoodAverage.text = "No Data"
+            binding.tvMoodHint.text = "Start tracking"
+        } else {
+            binding.tvMoodAverage.text = "${String.format(Locale.getDefault(), "%.1f", moodSummary.averageScore)}/5"
+            binding.tvMoodHint.text = "Keep tracking"
+        }
+
+        val hydrationSummary = AnalyticsManager.getHydrationSummary(context)
+        binding.tvHydrationToday.text = "${hydrationSummary.todayTotal} ml"
+
+        binding.tvLongestStreak.text = "${habitSummary.longestStreak} days"
 
         val habitTrend = AnalyticsManager.getHabitWeeklyCompletion(context)
         renderHabitChart(habitTrend)
 
-        val moodSummary = AnalyticsManager.getMoodSummary(context)
-        if (moodSummary.distribution.isEmpty()) {
-            binding.tvMoodAverage.text = "Mood insights"
-            binding.tvMoodHint.text = "Log your mood to unlock insights"
-        } else {
-            binding.tvMoodAverage.text = "Mood score ${String.format(Locale.getDefault(), "%.1f", moodSummary.averageScore)} / 5"
-            binding.tvMoodHint.text = when {
-                moodSummary.averageScore >= 4f -> "You're feeling great! Keep sharing the good vibes."
-                moodSummary.averageScore >= 2.5f -> "You're doing okay. Stay mindful and keep tracking."
-                else -> "Let's schedule extra self-care this week."
-            }
-        }
         renderMoodChart(moodSummary.distribution)
 
-        val hydrationSummary = AnalyticsManager.getHydrationSummary(context)
-        binding.tvHydrationToday.text = "Water today ${hydrationSummary.todayTotal} ml"
-        binding.tvHydrationGoal.text = "Daily goal ${hydrationSummary.dailyGoal} ml"
         renderHydrationChart(hydrationSummary.weeklyTotals, hydrationSummary.dailyGoal)
 
         val achievements = AchievementsManager.getAchievements(context)
         binding.rvAchievements.adapter = AchievementAdapter(achievements)
         binding.tvAchievementsEmpty.isVisible = achievements.none { it.isUnlocked }
+    }
+
+    private fun setupLogoutButton() {
+        binding.btnLogout.setOnClickListener {
+            showLogoutConfirmationDialog()
+        }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.CustomLogoutDialog)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Logout") { _, _ ->
+                performLogout()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun performLogout() {
+        // Clear user preferences
+        PreferencesManager.clearAllData(requireContext())
+
+        // Navigate to login screen
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun setupAchievementsSection() {

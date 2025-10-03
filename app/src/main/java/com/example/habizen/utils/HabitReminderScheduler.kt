@@ -4,7 +4,9 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.content.ContextCompat
 import com.example.habizen.data.Habit
 import com.example.habizen.receivers.HabitReminderReceiver
 import java.util.Calendar
@@ -20,14 +22,32 @@ object HabitReminderScheduler {
 		val triggerTime = calculateTriggerTimeMillis(habit.reminderTime)
 		val pendingIntent = createPendingIntent(context, habit)
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			alarmManager.setExactAndAllowWhileIdle(
-				AlarmManager.RTC_WAKEUP,
-				triggerTime,
-				pendingIntent
-			)
+		// Check if we can schedule exact alarms
+		val canScheduleExact = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+			alarmManager.canScheduleExactAlarms()
 		} else {
-			alarmManager.setExact(
+			// For older versions, check if we have the permission
+			ContextCompat.checkSelfPermission(context, android.Manifest.permission.SCHEDULE_EXACT_ALARM) == PackageManager.PERMISSION_GRANTED
+		}
+
+		if (canScheduleExact) {
+			// Use exact alarm if permission is granted
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				alarmManager.setExactAndAllowWhileIdle(
+					AlarmManager.RTC_WAKEUP,
+					triggerTime,
+					pendingIntent
+				)
+			} else {
+				alarmManager.setExact(
+					AlarmManager.RTC_WAKEUP,
+					triggerTime,
+					pendingIntent
+				)
+			}
+		} else {
+			// Fall back to inexact alarm if exact permission not granted
+			alarmManager.set(
 				AlarmManager.RTC_WAKEUP,
 				triggerTime,
 				pendingIntent

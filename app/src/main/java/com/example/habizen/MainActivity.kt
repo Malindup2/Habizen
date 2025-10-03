@@ -1,16 +1,22 @@
 package com.example.habizen
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.habizen.databinding.ActivityMainBinding
-import com.example.habizen.ui.fragments.HabitsFragment
-import com.example.habizen.ui.fragments.MoodFragment
-import com.example.habizen.ui.fragments.HydrationFragment
-import com.example.habizen.ui.fragments.ProfileFragment
 import com.example.habizen.ui.auth.LoginActivity
+import com.example.habizen.ui.fragments.HabitsFragment
+import com.example.habizen.ui.fragments.HydrationFragment
+import com.example.habizen.ui.fragments.MoodFragment
+import com.example.habizen.ui.fragments.ProfileFragment
+import com.example.habizen.utils.GoalCompletionNotificationManager
 import com.example.habizen.utils.PreferencesManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -23,6 +29,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        // Initialize notification manager for goal completion notifications
+        GoalCompletionNotificationManager.initialize(this)
+        
+        // Request notification permission if needed (Android 13+)
+        if (GoalCompletionNotificationManager.shouldRequestNotificationPermission(this)) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                1001
+            )
+        }
         
         setSupportActionBar(binding.toolbar)
         

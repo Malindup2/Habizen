@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Habizen</string>
+    <string name="app_name_colored"><![CDATA[<font color="#F06292">Habi</font><font color="#FFFFFF">zen</font>]]></string>
     
     <!-- Onboarding -->
     <string name="onboarding_title_1">Your Wellness Journey Starts Here</string>

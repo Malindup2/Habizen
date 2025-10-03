@@ -5,6 +5,7 @@
     <!-- Permissions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -28,9 +29,13 @@
             </intent-filter>
         </activity>
         
-        <!-- Onboarding Activity -->
+        <!-- Onboarding Activities -->
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name=".ui.onboarding.Onboarding1Activity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.onboarding.Onboarding2Activity"
             android:exported="false" />
         
         <!-- Authentication Activities -->

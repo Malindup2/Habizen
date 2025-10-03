@@ -328,16 +328,16 @@
                         android:text="Soda\n330ml"
                         app:icon="@drawable/ic_soda" />
 
-                    <!-- Custom -->
+                    <!-- Energy Drink -->
                     <Button
-                        android:id="@+id/btnCustomDrink"
+                        android:id="@+id/btnEnergyDrink"
                         style="@style/DrinkButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
                         android:layout_margin="4dp"
-                        android:text="Custom\nAmount"
-                        app:icon="@drawable/ic_add" />
+                        android:text="Energy\n200ml"
+                        app:icon="@drawable/ic_soda" />
 
                 </GridLayout>
 
@@ -639,6 +639,52 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- Custom Amount Input (always visible) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardCustomAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/surface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:hint="Enter amount (ml)">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCustomAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnAddCustom"
+                    style="@style/PrimaryButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/ic_add" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <!-- Recent Activity -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -708,56 +754,11 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHydrationHistory"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:nestedScrollingEnabled="false" />
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
+                        android:maxHeight="400dp" />
 
                 </FrameLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Hidden Custom Amount Input (shown when Custom button clicked) -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardCustomAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:visibility="gone"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/surface">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:hint="Enter amount (ml)">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etCustomAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnAddCustom"
-                    style="@style/PrimaryButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add"
-                    android:textColor="@color/white"
-                    app:icon="@drawable/ic_add" />
 
             </LinearLayout>
 
