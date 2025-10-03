@@ -400,6 +400,7 @@
                                 android:layout_columnWeight="1"
                                 android:layout_margin="4dp"
                                 android:layout_rowWeight="1"
+                                app:cardBackgroundColor="@android:color/transparent"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="4dp">
 
@@ -440,6 +441,7 @@
                                 android:layout_columnWeight="1"
                                 android:layout_margin="4dp"
                                 android:layout_rowWeight="1"
+                                app:cardBackgroundColor="@android:color/transparent"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="4dp">
 
@@ -480,6 +482,7 @@
                                 android:layout_columnWeight="1"
                                 android:layout_margin="4dp"
                                 android:layout_rowWeight="1"
+                                app:cardBackgroundColor="@android:color/transparent"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="4dp">
 
@@ -520,6 +523,7 @@
                                 android:layout_columnWeight="1"
                                 android:layout_margin="4dp"
                                 android:layout_rowWeight="1"
+                                app:cardBackgroundColor="@android:color/transparent"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="4dp">
 
@@ -560,6 +564,7 @@
                                 android:layout_columnWeight="1"
                                 android:layout_margin="4dp"
                                 android:layout_rowWeight="1"
+                                app:cardBackgroundColor="@android:color/transparent"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="4dp">
 
