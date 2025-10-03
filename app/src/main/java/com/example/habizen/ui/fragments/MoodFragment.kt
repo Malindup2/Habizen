@@ -44,6 +44,7 @@ class MoodFragment : Fragment() {
         loadMoodEntries()
         setupClickListeners()
         setupCalendar()
+        updateMoodInsights()
     }
     
     private fun setupRecyclerView() {
@@ -61,10 +62,11 @@ class MoodFragment : Fragment() {
         moodEntries.clear()
         moodEntries.addAll(PreferencesManager.getMoodEntries(requireContext()).sortedByDescending { it.timestamp })
         updateUI()
+        updateMoodInsights()
     }
     
     private fun setupClickListeners() {
-        // Mood selection
+        // Mood selection - now using LinearLayout containers
         binding.tvMoodVerySad.setOnClickListener { selectMood(MoodEntry.MOOD_VERY_SAD, "Very Sad") }
         binding.tvMoodSad.setOnClickListener { selectMood(MoodEntry.MOOD_SAD, "Sad") }
         binding.tvMoodNeutral.setOnClickListener { selectMood(MoodEntry.MOOD_NEUTRAL, "Neutral") }
@@ -184,25 +186,42 @@ class MoodFragment : Fragment() {
         selectedMood = emoji
         binding.tvSelectedMood.text = "$emoji $name"
         
-        // Reset background for all mood views
+        // Reset background for all mood containers
         resetMoodSelections()
         
-        // Highlight selected mood
-        when (emoji) {
-            MoodEntry.MOOD_VERY_SAD -> binding.tvMoodVerySad.setBackgroundResource(android.R.color.holo_blue_light)
-            MoodEntry.MOOD_SAD -> binding.tvMoodSad.setBackgroundResource(android.R.color.holo_blue_light)
-            MoodEntry.MOOD_NEUTRAL -> binding.tvMoodNeutral.setBackgroundResource(android.R.color.holo_blue_light)
-            MoodEntry.MOOD_HAPPY -> binding.tvMoodHappy.setBackgroundResource(android.R.color.holo_blue_light)
-            MoodEntry.MOOD_VERY_HAPPY -> binding.tvMoodVeryHappy.setBackgroundResource(android.R.color.holo_blue_light)
+        // Highlight selected mood container
+        val selectedView = when (emoji) {
+            MoodEntry.MOOD_VERY_SAD -> binding.tvMoodVerySad
+            MoodEntry.MOOD_SAD -> binding.tvMoodSad
+            MoodEntry.MOOD_NEUTRAL -> binding.tvMoodNeutral
+            MoodEntry.MOOD_HAPPY -> binding.tvMoodHappy
+            MoodEntry.MOOD_VERY_HAPPY -> binding.tvMoodVeryHappy
+            else -> null
+        }
+        
+        selectedView?.let { view ->
+            view.background = ContextCompat.getDrawable(requireContext(), R.color.primary)
+            animateMoodSelection(view)
         }
     }
     
+    private fun animateMoodSelection(view: View) {
+        val scaleX = android.animation.ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.1f, 1f)
+        val scaleY = android.animation.ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.1f, 1f)
+        
+        val animatorSet = android.animation.AnimatorSet()
+        animatorSet.playTogether(scaleX, scaleY)
+        animatorSet.duration = 300
+        animatorSet.start()
+    }
+    
     private fun resetMoodSelections() {
-        binding.tvMoodVerySad.background = null
-        binding.tvMoodSad.background = null
-        binding.tvMoodNeutral.background = null
-        binding.tvMoodHappy.background = null
-        binding.tvMoodVeryHappy.background = null
+        val defaultBackground = ContextCompat.getDrawable(requireContext(), R.drawable.mood_button_background)
+        binding.tvMoodVerySad.background = defaultBackground
+        binding.tvMoodSad.background = defaultBackground
+        binding.tvMoodNeutral.background = defaultBackground
+        binding.tvMoodHappy.background = defaultBackground
+        binding.tvMoodVeryHappy.background = defaultBackground
     }
     
     private fun saveMoodEntry() {
@@ -223,6 +242,7 @@ class MoodFragment : Fragment() {
         moodEntries.add(0, moodEntry) // Add to beginning of list
         saveMoodEntries()
         updateUI()
+        updateMoodInsights()
         
         // Reset form
         resetForm()
@@ -268,12 +288,111 @@ class MoodFragment : Fragment() {
         moodAdapter.notifyDataSetChanged()
     }
     
-    private fun saveMoodEntries() {
-        PreferencesManager.saveMoodEntries(requireContext(), moodEntries)
+    private fun updateMoodInsights() {
+        if (moodEntries.isEmpty()) {
+            // Reset all insights to default values
+            binding.tvWeeklyAverage.text = "😊 0.0 avg"
+            binding.progressHappy.progress = 0
+            binding.progressNeutral.progress = 0
+            binding.progressSad.progress = 0
+            binding.tvHappyPercent.text = "0%"
+            binding.tvNeutralPercent.text = "0%"
+            binding.tvSadPercent.text = "0%"
+            binding.tvTotalEntries.text = "0"
+            binding.tvCurrentStreak.text = "0"
+            binding.tvBestMood.text = "😊"
+            return
+        }
+
+        // Calculate weekly average (last 7 days)
+        val weeklyAverage = calculateWeeklyAverage()
+        binding.tvWeeklyAverage.text = "${getMoodEmojiForValue(weeklyAverage)} ${String.format("%.1f", weeklyAverage)} avg"
+
+        // Calculate mood distribution
+        val distribution = calculateMoodDistribution()
+        val total = distribution.values.sum()
+
+        if (total > 0) {
+            val happyPercent = (distribution[MoodEntry.MOOD_HAPPY] ?: 0) * 100 / total
+            val veryHappyPercent = (distribution[MoodEntry.MOOD_VERY_HAPPY] ?: 0) * 100 / total
+            val neutralPercent = (distribution[MoodEntry.MOOD_NEUTRAL] ?: 0) * 100 / total
+            val sadPercent = (distribution[MoodEntry.MOOD_SAD] ?: 0) * 100 / total
+            val verySadPercent = (distribution[MoodEntry.MOOD_VERY_SAD] ?: 0) * 100 / total
+
+            binding.progressHappy.progress = happyPercent + veryHappyPercent
+            binding.progressNeutral.progress = neutralPercent
+            binding.progressSad.progress = sadPercent + verySadPercent
+
+            binding.tvHappyPercent.text = "${happyPercent + veryHappyPercent}%"
+            binding.tvNeutralPercent.text = "$neutralPercent%"
+            binding.tvSadPercent.text = "${sadPercent + verySadPercent}%"
+        }
+
+        // Update stats
+        binding.tvTotalEntries.text = moodEntries.size.toString()
+        binding.tvCurrentStreak.text = calculateCurrentStreak().toString()
+        binding.tvBestMood.text = getMostCommonMood()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun calculateWeeklyAverage(): Double {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, -6) // Last 7 days including today
+
+        val weekStart = calendar.time
+        val weeklyEntries = moodEntries.filter { Date(it.timestamp) >= weekStart }
+
+        if (weeklyEntries.isEmpty()) return 0.0
+
+        val totalScore = weeklyEntries.sumOf { it.getMoodValue() }
+        return totalScore.toDouble() / weeklyEntries.size
+    }
+
+    private fun calculateMoodDistribution(): Map<String, Int> {
+        return moodEntries.groupingBy { it.emoji }.eachCount()
+    }
+
+    private fun calculateCurrentStreak(): Int {
+        if (moodEntries.isEmpty()) return 0
+
+        val calendar = Calendar.getInstance()
+        var streak = 0
+        var checkDate = calendar.time
+
+        while (true) {
+            val dateStr = java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(checkDate)
+            val dayEntries = moodEntries.filter { it.dateString == dateStr }
+
+            if (dayEntries.isNotEmpty()) {
+                streak++
+                calendar.add(Calendar.DAY_OF_MONTH, -1)
+                checkDate = calendar.time
+            } else {
+                break
+            }
+        }
+
+        return streak
+    }
+
+    private fun getMostCommonMood(): String {
+        if (moodEntries.isEmpty()) return "😊"
+
+        val distribution = calculateMoodDistribution()
+        val mostCommon = distribution.maxByOrNull { it.value }?.key ?: MoodEntry.MOOD_NEUTRAL
+        return mostCommon
+    }
+
+    private fun getMoodEmojiForValue(value: Double): String {
+        return when {
+            value >= 4.5 -> MoodEntry.MOOD_VERY_HAPPY
+            value >= 3.5 -> MoodEntry.MOOD_HAPPY
+            value >= 2.5 -> MoodEntry.MOOD_NEUTRAL
+            value >= 1.5 -> MoodEntry.MOOD_SAD
+            else -> MoodEntry.MOOD_VERY_SAD
+        }
+    }
+
+    private fun saveMoodEntries() {
+        PreferencesManager.saveMoodEntries(requireContext(), moodEntries)
     }
 }

@@ -708,8 +708,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHydrationHistory"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:nestedScrollingEnabled="false" />
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
+                        android:maxHeight="400dp" />
 
                 </FrameLayout>
 

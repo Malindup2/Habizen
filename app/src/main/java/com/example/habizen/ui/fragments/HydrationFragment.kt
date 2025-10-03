@@ -117,6 +117,7 @@ class HydrationFragment : Fragment() {
         binding.rvHydrationHistory.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = hydrationAdapter
+            isNestedScrollingEnabled = true
         }
     }
     

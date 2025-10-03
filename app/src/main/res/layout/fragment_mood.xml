@@ -22,6 +22,322 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Mood Insights Card -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CardStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Insights Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/gradient_background"
+                        android:padding="20dp">
+
+                        <TextView
+                            style="@style/SubheadlineStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Mood Insights"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="Your mood patterns at a glance"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.9" />
+
+                    </LinearLayout>
+
+                    <!-- Insights Content -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <!-- Weekly Summary -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="This Week"
+                                android:textColor="@color/text_primary"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvWeeklyAverage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="😊 4.2 avg"
+                                android:textColor="@color/primary"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <!-- Mood Distribution -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:text="Mood Distribution"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/mood_emoji_background"
+                                    android:gravity="center"
+                                    android:text="😊"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:text="Happy"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="12sp" />
+
+                                <ProgressBar
+                                    android:id="@+id/progressHappy"
+                                    style="@android:style/Widget.ProgressBar.Horizontal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="8dp"
+                                    android:layout_weight="1"
+                                    android:max="100"
+                                    android:progress="0"
+                                    android:progressTint="@color/success"
+                                    android:progressBackgroundTint="@color/progress_background" />
+
+                                <TextView
+                                    android:id="@+id/tvHappyPercent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="0%"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/mood_emoji_background"
+                                    android:gravity="center"
+                                    android:text="😐"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:text="Neutral"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="12sp" />
+
+                                <ProgressBar
+                                    android:id="@+id/progressNeutral"
+                                    style="@android:style/Widget.ProgressBar.Horizontal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="8dp"
+                                    android:layout_weight="1"
+                                    android:max="100"
+                                    android:progress="0"
+                                    android:progressTint="@color/secondary"
+                                    android:progressBackgroundTint="@color/progress_background" />
+
+                                <TextView
+                                    android:id="@+id/tvNeutralPercent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="0%"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/mood_emoji_background"
+                                    android:gravity="center"
+                                    android:text="😢"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:text="Sad"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="12sp" />
+
+                                <ProgressBar
+                                    android:id="@+id/progressSad"
+                                    style="@android:style/Widget.ProgressBar.Horizontal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="8dp"
+                                    android:layout_weight="1"
+                                    android:max="100"
+                                    android:progress="0"
+                                    android:progressTint="@color/error"
+                                    android:progressBackgroundTint="@color/progress_background" />
+
+                                <TextView
+                                    android:id="@+id/tvSadPercent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="0%"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <!-- Quick Stats -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tvTotalEntries"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/primary"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Entries"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tvCurrentStreak"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/success"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Day Streak"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tvBestMood"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="😊"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Most Common"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Add Mood Card -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/CardStyle"
@@ -69,74 +385,215 @@
                         android:orientation="vertical"
                         android:padding="20dp">
 
-                        <LinearLayout
+                        <!-- Mood Grid -->
+                        <GridLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginBottom="20dp"
+                            android:columnCount="3"
+                            android:rowCount="2">
 
-                            <TextView
-                                android:id="@+id/tvMoodVerySad"
+                            <!-- Very Sad -->
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="72dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/mood_button_background"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:text="😢"
-                                android:textSize="36sp" />
+                                android:layout_height="80dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                android:layout_rowWeight="1"
+                                app:cardCornerRadius="16dp"
+                                app:cardElevation="4dp">
 
-                            <TextView
-                                android:id="@+id/tvMoodSad"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/mood_button_background"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:id="@+id/tvMoodVerySad"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="😢"
+                                        android:textSize="24sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:text="Very Sad"
+                                        android:textColor="@color/text_primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Sad -->
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="72dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/mood_button_background"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:text="😟"
-                                android:textSize="36sp" />
+                                android:layout_height="80dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                android:layout_rowWeight="1"
+                                app:cardCornerRadius="16dp"
+                                app:cardElevation="4dp">
 
-                            <TextView
-                                android:id="@+id/tvMoodNeutral"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/mood_button_background"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:id="@+id/tvMoodSad"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="😟"
+                                        android:textSize="24sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:text="Sad"
+                                        android:textColor="@color/text_primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Neutral -->
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="72dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/mood_button_background"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:text="😐"
-                                android:textSize="36sp" />
+                                android:layout_height="80dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                android:layout_rowWeight="1"
+                                app:cardCornerRadius="16dp"
+                                app:cardElevation="4dp">
 
-                            <TextView
-                                android:id="@+id/tvMoodHappy"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/mood_button_background"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:id="@+id/tvMoodNeutral"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="😐"
+                                        android:textSize="24sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:text="Neutral"
+                                        android:textColor="@color/text_primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Happy -->
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="72dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/mood_button_background"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:text="🙂"
-                                android:textSize="36sp" />
+                                android:layout_height="80dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                android:layout_rowWeight="1"
+                                app:cardCornerRadius="16dp"
+                                app:cardElevation="4dp">
 
-                            <TextView
-                                android:id="@+id/tvMoodVeryHappy"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/mood_button_background"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:id="@+id/tvMoodHappy"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="🙂"
+                                        android:textSize="24sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:text="Happy"
+                                        android:textColor="@color/text_primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Very Happy -->
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="72dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/mood_button_background"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:text="😊"
-                                android:textSize="36sp" />
+                                android:layout_height="80dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                android:layout_rowWeight="1"
+                                app:cardCornerRadius="16dp"
+                                app:cardElevation="4dp">
 
-                        </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/mood_button_background"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:id="@+id/tvMoodVeryHappy"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="😊"
+                                        android:textSize="24sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:text="Very Happy"
+                                        android:textColor="@color/text_primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                        </GridLayout>
 
                         <TextView
                             android:id="@+id/tvSelectedMood"
