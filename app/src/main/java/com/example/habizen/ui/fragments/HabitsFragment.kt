@@ -11,6 +11,7 @@ import com.example.habizen.data.Habit
 import com.example.habizen.ui.adapters.HabitsAdapter
 import com.example.habizen.ui.dialogs.AddHabitDialog
 import com.example.habizen.ui.dialogs.EditHabitDialog
+import com.example.habizen.utils.GoalCompletionNotificationManager
 import com.example.habizen.utils.HabitReminderScheduler
 import com.example.habizen.utils.PreferencesManager
 import com.example.habizen.utils.AnalyticsManager
@@ -194,6 +195,8 @@ class HabitsFragment : Fragment() {
         if (isChecked && updatedHabit.isCompletedToday()) {
             // Show completion celebration
             showCompletionDialog(habit.name)
+            // Send goal completion notification
+            GoalCompletionNotificationManager.sendHabitCompletionNotification(requireContext(), habit.name)
         }
     }
     

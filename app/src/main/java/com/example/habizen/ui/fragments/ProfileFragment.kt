@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.habizen.R
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habizen.data.DailyStat
 import com.example.habizen.data.MoodEntry
@@ -121,7 +122,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showLogoutConfirmationDialog() {
-        AlertDialog.Builder(requireContext())
+        androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.CustomLogoutDialog)
             .setTitle("Logout")
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Logout") { _, _ ->

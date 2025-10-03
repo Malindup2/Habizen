@@ -18,6 +18,7 @@ import com.example.habizen.R
 import com.example.habizen.data.HydrationData
 import com.example.habizen.databinding.FragmentHydrationBinding
 import com.example.habizen.utils.PreferencesManager
+import com.example.habizen.utils.GoalCompletionNotificationManager
 import com.example.habizen.workers.HydrationReminderWorker
 import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
@@ -169,6 +170,8 @@ class HydrationFragment : Fragment() {
         // Check if goal reached
         if (currentIntake >= dailyGoal) {
             Toast.makeText(requireContext(), "🎉 Daily hydration goal achieved!", Toast.LENGTH_LONG).show()
+            // Send goal completion notification
+            GoalCompletionNotificationManager.sendHydrationGoalNotification(requireContext(), dailyGoal)
         }
     }
     

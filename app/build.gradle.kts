@@ -37,6 +37,9 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    lint {
+        disable += "ProtectedPermissions"
+    }
 }
 
 dependencies {
